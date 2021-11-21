@@ -7,14 +7,14 @@ export async function load({
 const points = await fetch('/markers.json').then(res => res.json())
 const pointsWithPopups = points.map(point => {
   const text = `<div class="popup">
-                  <a href="/poi/${point.slug.current}">${point.title}<img src="${point.photo}"/></a>
+                  <a href="/poi/${point.slug.current}">${point.title}<img src="${point.photo}?w=1"/></a>
                 </div>
 `
   return {
     ...point, 
     popup: {
       text,
-      isOpen: true,
+      isOpen: false,
     }    
   }
 })
