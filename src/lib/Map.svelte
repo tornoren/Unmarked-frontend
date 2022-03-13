@@ -7,7 +7,7 @@
   {
     center: [points[0].lat,points[0].lng],
     mapID: "map",
-    zoom: 10,
+    zoom: 8,
     markers: points,    
     tilelayers: [
         {          

@@ -1,5 +1,5 @@
 <script context='module'>
-import client from '$lib/sanity';
+import {client} from '$lib/sanity';
 
 const query = `*[_type=='user'&&slug.current==$slug][0]
 {
@@ -21,7 +21,7 @@ export async function load(){
 
 
 <script>
-export let user = {amigos: []}
+export let user 
 </script>
 
 <h1>Your amigos, {user.name}</h1>

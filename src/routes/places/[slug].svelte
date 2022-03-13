@@ -1,16 +1,17 @@
 <script context='module'>
 
-import client from '$lib/sanity';
+import {client} from '$lib/sanity';
 
 export async function load(props){
 const {
-  page
+  params
 }=props
 console.log(props)
 const query = `*[_type=='poi'&&slug.current==$slug] [0] {
     title,
     description,
   	slug,
+    photo,
     gallery[]{
       asset->
       {
@@ -24,7 +25,7 @@ const query = `*[_type=='poi'&&slug.current==$slug] [0] {
       "text": title,
       
     },}`
-const poi = await client.fetch(query,{slug:page.params.slug})
+const poi = await client.fetch(query,{slug:params.slug})
 
 return {
   props: {
@@ -35,9 +36,10 @@ return {
 
 </script>
 <script>
-  export let poi
-  $: ({title,description,gallery}=poi)
+  export let poi = {}
+  $: ({title,description,photo,gallery}=poi)
 
+  import {urlFor} from '$lib/sanity';
 </script>
 
 
@@ -45,15 +47,26 @@ return {
 
 <h1>{title}</h1>
 <p>{description}</p>
-
+<img src="{urlFor(photo).width(640).url()}" alt="{title}"/>
 
 
 <ul>
-	{#each gallery as image}
-   <li>  <img src={image.asset.url+"?w=600"} alt={image.asset.description||"No alttext available"}>
-   </li>
-  {/each}
+    
+  {#if gallery != null}
+  
+    {#each gallery as image}
+    <li>  <img src={image.asset.url+"?w=600"} alt={image.asset.description||"No alttext available"}>
+    </li>
+    {/each}
+  {:else}
+  <li>No images available</li>
+  {/if}
 </ul>
+
+
+
+
+
 
 
 <pre>
