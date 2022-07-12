@@ -1,6 +1,8 @@
 <script context='module'>
 
 import {client} from '$lib/sanity';
+import GallerySwipe from '$lib/Gallery_swipe.svelte';
+
 
 export async function load(props){
 const {
@@ -37,37 +39,33 @@ return {
 </script>
 <script>
   export let poi = {}
-  $: ({title,description,photo,gallery}=poi)
+  $: ({title,description,photo,gallery,lat,lng}=poi)
 
   import {urlFor} from '$lib/sanity';
+  import Map from '$lib/Map.svelte';
+ 
 </script>
 
 
 
 
-<h1>{title}</h1>
+
+
+
+<div>
+  <GallerySwipe images={gallery}/>
+</div>
+
+
+
+<h1 class="text-2xl my-5 font-bold">{title}</h1>
+
+
 <p>{description}</p>
-<img src="{urlFor(photo).width(640).url()}" alt="{title}"/>
 
-
-<ul>
-    
-  {#if gallery != null}
-  
-    {#each gallery as image}
-    <li>  <img src={image.asset.url+"?w=600"} alt={image.asset.description||"No alttext available"}>
-    </li>
-    {/each}
-  {:else}
-  <li>No images available</li>
-  {/if}
-</ul>
-
-
-
-
-
-
+<div>
+  <Map points={[{lat,lng}]} zoom={14}/>
+</div>
 
 <pre>
   {JSON.stringify(gallery,null,2)}

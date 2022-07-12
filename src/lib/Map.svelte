@@ -1,13 +1,14 @@
 <script>
   import Map from '@anoram/leaflet-svelte'
   export let points
+  export let zoom
   let id = 'norgeskart_bakgrunn';
   let newestPointPosition = points.length - 1;
   let options = points.length > 0 ?   
   {
     center: [points[0].lat,points[0].lng],
     mapID: "map",
-    zoom: 8,
+    zoom: zoom||12,
     markers: points,    
     tilelayers: [
         {          
