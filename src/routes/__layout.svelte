@@ -4,7 +4,7 @@
 
 
 
-<main class="bg-slate-300 px-10 py-10 ">
+<main class="bg-slate-300 px-5 py-5 min-h-screen">
 
 	<slot />
 	

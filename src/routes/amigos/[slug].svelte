@@ -17,7 +17,7 @@
   `
   
   export async function load(props){
-    let slug = props.page.params.slug
+    let slug = props.params.slug
     let user = await client.fetch(query, {slug: slug})
     return {props: {user}}
   }
@@ -35,12 +35,12 @@
 
 
   <ul>
-    <li>Name {user.name} </li>
-    <li>Email {user.email}</li>
-    <li>Tagline {user.tagline}</li>
+    <li>Name: {user.name} </li>
+    <li>Email: {user.email}</li>
+    <li>Tagline: {user.tagline}</li>
     <li><img src={urlFor(user.poster).width(200).url()} /></li>
     <li>{user.amigosCount} amigos</li>
   </ul>
 
-  
+
 

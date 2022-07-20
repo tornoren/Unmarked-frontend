@@ -28,7 +28,7 @@
 
 </script>
 
-<div class="map">
+<div class="map ">
   <Map {options}/>
 
 
@@ -38,6 +38,10 @@
   .map {
     height: 600px;
     width: auto;
+    
+  }
+  .map :global(.leaflet-container) {
+    border-radius: 5px;
   }
 </style>
 

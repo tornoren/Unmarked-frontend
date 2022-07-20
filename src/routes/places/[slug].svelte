@@ -12,9 +12,11 @@ console.log(props)
 const query = `*[_type=='poi'&&slug.current==$slug] [0] {
     title,
     description,
+    createdBy->,
   	slug,
     photo,
     gallery[]{
+      crop, hotspot,
       asset->
       {
         description,
@@ -39,36 +41,35 @@ return {
 </script>
 <script>
   export let poi = {}
-  $: ({title,description,photo,gallery,lat,lng}=poi)
+  $: ({title,description,createdBy,gallery,lat,lng}=poi)
 
   import {urlFor} from '$lib/sanity';
   import Map from '$lib/Map.svelte';
+import CreatedBy from '$lib/CreatedBy.svelte';
  
 </script>
-
-
-
-
-
-
 
 <div>
   <GallerySwipe images={gallery}/>
 </div>
 
-
+<article class="prose">
 
 <h1 class="text-2xl my-5 font-bold">{title}</h1>
 
 
 <p>{description}</p>
 
+<CreatedBy user={createdBy}/>
+
 <div>
   <Map points={[{lat,lng}]} zoom={14}/>
 </div>
 
+
+</article>
 <pre>
-  {JSON.stringify(gallery,null,2)}
+  {JSON.stringify(createdBy,null,2)}
 </pre>
 
 
